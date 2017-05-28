@@ -21,6 +21,7 @@
 
 @implementation MainPresenter {
     NSMutableArray *connectedDevicesMutable;
+    NSDate* scanStartTime;
 }
 
 #pragma mark - Init method
@@ -44,7 +45,8 @@
 #pragma mark - Button Actions
 //This method is responsible for handling the tap button action on MainVC. In case the scan is running and the button is tapped it will stop the scan
 -(void)scanButtonClicked {
-    
+
+    scanStartTime = [NSDate date];
     //Checks if is already scanning
     if (self.isScanRunning) {
         
@@ -94,7 +96,8 @@
 }
 
 -(void)lanScanDidFinishScanningWithStatus:(MMLanScannerStatus)status{
-   
+
+    NSLog(@"done scanning, %.02f secs", -scanStartTime.timeIntervalSinceNow);
     self.isScanRunning=NO;
     
     //Checks the status of finished. Then call the appropriate method
