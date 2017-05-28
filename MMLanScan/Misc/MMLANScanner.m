@@ -54,6 +54,16 @@
     return self;
 }
 
+-(void)setMaxConcurrentOperationCount:(NSInteger)maxConcurrentOperationCount {
+
+    self.queue.maxConcurrentOperationCount = maxConcurrentOperationCount;
+}
+
+-(NSInteger)maxConcurrentOperationCount {
+
+    return self.queue.maxConcurrentOperationCount;
+}
+
 #pragma mark - Start/Stop ping
 -(void)start {
     

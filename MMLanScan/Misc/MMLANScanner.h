@@ -87,6 +87,11 @@ MMLanScannerStatus;
 @property(nonatomic,assign,readonly)BOOL isScanning;
 
 /*!
+ @brief An int property that lets you set the max concurrent operations on the queue.
+ */
+@property(nonatomic,assign) NSInteger maxConcurrentOperationCount;
+
+/*!
  @brief Starts the scanning
  */
 - (void)start;
