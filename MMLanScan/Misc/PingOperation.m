@@ -141,12 +141,14 @@ static const float PING_TIMEOUT = 1;
     }
     
     [pinger sendPingWithData:nil];
-    //NSLog(@"start");
+//    NSLog(@"start %@", self.ipStr);
+
 }
 
 - (void)simplePing:(SimplePing *)pinger didFailWithError:(NSError *)error {
   
-    //  NSLog(@"failed");
+    NSLog(@"failed:  %@", self.ipStr);
+
     [pingTimer invalidate];
     errorMessage = error;
     [self finishedPing];
@@ -154,7 +156,8 @@ static const float PING_TIMEOUT = 1;
 
 - (void)simplePing:(SimplePing *)pinger didFailToSendPacket:(NSData *)packet error:(NSError *)error {
     
-    //NSLog(@"failed");
+    NSLog(@"failed %@", self.ipStr);
+
     [pingTimer invalidate];
     errorMessage = error;
     [self finishedPing];
@@ -162,7 +165,7 @@ static const float PING_TIMEOUT = 1;
 
 - (void)simplePing:(SimplePing *)pinger didReceivePingResponsePacket:(NSData *)packet {
    
-    //NSLog(@"success");
+    NSLog(@"success %@", self.ipStr);
     [pingTimer invalidate];
     [self finishedPing];
 }
@@ -173,7 +176,8 @@ static const float PING_TIMEOUT = 1;
 }
 
 - (void)pingTimeOut:(NSTimer *)timer {
-    //NSLog(@"Ping timeout occurred, host not reachable");
+    NSLog(@"Ping timeout occurred, host not reachable  %@", self.ipStr);
+
     // Move to next host
     errorMessage = [NSError errorWithDomain:@"Ping timeout" code:11 userInfo:nil];
     [self finishedPing];

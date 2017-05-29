@@ -36,6 +36,8 @@
    
     //This is not a production code. Run this command only if you have a new OUI.txt file to parse. After parsing the default location of data.plist will be on DocumentsDirectory. Then you can add the new data.plist to your project and build it.
     //[OUIParser parseOUIWithSourceFilePath:nil andOutputFilePath:nil];
+
+    [self performSelector:@selector(scanButtonClicked) withObject:nil afterDelay:1.0];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -98,8 +100,9 @@
 //The delegates methods from Presenters.These methods help the MainPresenter to notify the MainVC for any kind of changes
 -(void)mainPresenterIPSearchFinished {
     
-    [[[UIAlertView alloc] initWithTitle:@"Scan Finished" message:[NSString stringWithFormat:@"Number of devices connected to the Local Area Network : %lu", (unsigned long)self.presenter.connectedDevices.count] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//    [[[UIAlertView alloc] initWithTitle:@"Scan Finished" message:[NSString stringWithFormat:@"Number of devices connected to the Local Area Network : %lu", (unsigned long)self.presenter.connectedDevices.count] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     [self hideProgressBar];
+    [self performSelector:@selector(scanButtonClicked) withObject:nil afterDelay:1.0];
 };
 
 -(void)mainPresenterIPSearchFailed {

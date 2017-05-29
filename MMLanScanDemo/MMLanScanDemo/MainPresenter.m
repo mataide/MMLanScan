@@ -58,13 +58,18 @@
     }
     
 }
+
 -(void)startNetworkScan {
     
     self.isScanRunning=YES;
     
     connectedDevicesMutable = [[NSMutableArray alloc] init];
     
-    [self.lanScanner start];
+    self.lanScanner = [[MMLANScanner alloc] initWithDelegate:self];
+//    self.lanScanner.maxConcurrentOperationCount = 20;
+//    [self.lanScanner start];
+        [self.lanScanner startPingAllHostsForIP:@"192.168.0.1" subnet:@"255.255.255.0"];
+//        [self.lanScanner startPingAllHostsForIP:@"195.191.1.1" subnet:@"255.255.255.0"];
 };
 
 -(void)stopNetworkScan {
@@ -95,9 +100,15 @@
     self.connectedDevices = [NSArray arrayWithArray:connectedDevicesMutable];
 }
 
+static float times = 0;
+static float total = 0;
+
 -(void)lanScanDidFinishScanningWithStatus:(MMLanScannerStatus)status{
 
-    NSLog(@"done scanning, %.02f secs", -scanStartTime.timeIntervalSinceNow);
+    total += connectedDevicesMutable.count;
+    times += 1;
+    NSLog(@"done scanning, %u device(s), %.02f secs (avg cnt %.1f)", connectedDevicesMutable.count, -scanStartTime.timeIntervalSinceNow, total/times);
+
     self.isScanRunning=NO;
     
     //Checks the status of finished. Then call the appropriate method
