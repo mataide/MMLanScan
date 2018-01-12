@@ -21,10 +21,20 @@
     //Converting IP and Subnet to Binary
     NSArray *ipArray = [self ipToBinary:ipAddress];
     NSArray *subnetArray = [self ipToBinary:subnetMask];
+    NSMutableArray *newSubArray = [[NSMutableArray alloc]initWithArray:subnetArray];
+    
+    [newSubArray setObject:@1 atIndexedSubscript:8];
+    [newSubArray setObject:@1 atIndexedSubscript:9];
+    [newSubArray setObject:@1 atIndexedSubscript:10];
+    [newSubArray setObject:@1 atIndexedSubscript:11];
+    [newSubArray setObject:@1 atIndexedSubscript:12];
+    [newSubArray setObject:@1 atIndexedSubscript:13];
+    [newSubArray setObject:@1 atIndexedSubscript:14];
+    [newSubArray setObject:@1 atIndexedSubscript:15];
     
     //Getting the first and last IP as array binary
-    NSArray *firstIPArray = [self firstIPToPingForIPAddress:ipArray subnetMask:subnetArray];
-    NSArray *lastIPArray = [self lastIPToPingForIPAddress:ipArray subnetMask:subnetArray];
+    NSArray *firstIPArray = [self firstIPToPingForIPAddress:ipArray subnetMask:newSubArray];
+    NSArray *lastIPArray = [self lastIPToPingForIPAddress:ipArray subnetMask:newSubArray];
     
     //Looping through all possible IPs and extracting them as NSString in NSArray
     NSMutableArray *ipArr = [[NSMutableArray alloc]init];
